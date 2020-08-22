@@ -124,13 +124,15 @@ set_property -name "dsa.version" -value "0.0" -objects $obj
 set_property -name "enable_vhdl_2008" -value "1" -objects $obj
 set_property -name "ip_cache_permissions" -value "read write" -objects $obj
 #set_property -name "ip_output_repo" -value "$proj_dir/${_xil_proj_name_}.cache/ip" -objects $obj
-set_property -name "ip_output_repo" -value "$proj_dir/ip" -objects $obj
+set_property -name "ip_output_repo" -value "$proj_dir
+/ip" -objects $obj
 set_property -name "mem.enable_memory_map_generation" -value "1" -objects $obj
 set_property -name "sim.central_dir" -value "$proj_dir/${_xil_proj_name_}.ip_user_files" -objects $obj
 set_property -name "sim.ip.auto_export_scripts" -value "1" -objects $obj
 set_property -name "simulator_language" -value "Mixed" -objects $obj
 
-set_property -name "target_language" -value "VHDL" -objects $obj
+# TODO improve
+# set_property -name "target_language" -value "VHDL" -objects $obj
 set_property -name "xsim.array_display_limit" -value "1024" -objects $obj
 set_property -name "xsim.radix" -value "hex" -objects $obj
 set_property -name "xsim.time_unit" -value "ns" -objects $obj
@@ -153,7 +155,7 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 # Import local files from the original project
-add_files -norecurse $proj_dir/src/${_xil_module_name_}.$_ext
+add_files -norecurse -fileset $obj $proj_dir/src/${_xil_module_name_}.$_ext
 
 # ----------
 
@@ -162,7 +164,8 @@ if {[string equal [get_filesets -quiet sim_1] ""]} {
   create_fileset -simset sim_1
 }
 
-add_files -norecurse $proj_dir/src/tb_${_xil_module_name_}.$_ext
+set obj [get_filesets sim_1]
+add_files -norecurse -fileset $obj $proj_dir/src/tb_${_xil_module_name_}.$_ext
 
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
@@ -170,7 +173,8 @@ set obj [get_filesets sources_1]
 # Set 'sources_1' fileset file properties for local files
 set file "src/${_xil_module_name_}."${_ext}
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
+# TODO improve
+#set_property -name "file_type" -value "VHDL" -objects $file_obj
 set_property -name "is_enabled" -value "1" -objects $file_obj
 set_property -name "is_global_include" -value "0" -objects $file_obj
 set_property -name "library" -value "xil_defaultlib" -objects $file_obj
@@ -181,7 +185,7 @@ set_property -name "used_in_synthesis" -value "1" -objects $file_obj
 
 set file "src/tb_${_xil_module_name_}."${_ext}
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
+# TODO improve
 set_property -name "is_enabled" -value "1" -objects $file_obj
 set_property -name "is_global_include" -value "0" -objects $file_obj
 set_property -name "library" -value "xil_defaultlib" -objects $file_obj
