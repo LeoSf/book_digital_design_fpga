@@ -184,8 +184,9 @@ set_property -name "used_in_simulation" -value "1" -objects $file_obj
 set_property -name "used_in_synthesis" -value "1" -objects $file_obj
 
 set file "src/tb_${_xil_module_name_}."${_ext}
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-# TODO improve
+set file_obj [get_files -of_objects [get_filesets sim_1] [list "*$file"]]
+# TODO improve, not working
+#set obj [get_filesets sim_1]
 set_property -name "is_enabled" -value "1" -objects $file_obj
 set_property -name "is_global_include" -value "0" -objects $file_obj
 set_property -name "library" -value "xil_defaultlib" -objects $file_obj
