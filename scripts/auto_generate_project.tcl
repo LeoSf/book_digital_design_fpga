@@ -29,6 +29,12 @@ set _ext "v"
 
 # \User customization -----------------------------------------------------
 
+## Delete previous logs and journals
+file delete {*}[glob vivado*.backup.jou]
+file delete {*}[glob vivado*.backup.log]
+file delete -force .Xil/
+
+
 # Set the reference directory for source file relative paths (by default the value is
 # script directory path)
 set origin_dir "."
@@ -269,9 +275,3 @@ set_property -name "xsim.simulate.saif_scope" -value "" -objects $obj
 set_property -name "xsim.simulate.tcl.post" -value "" -objects $obj
 set_property -name "xsim.simulate.wdb" -value "" -objects $obj
 set_property -name "xsim.simulate.xsim.more_options" -value "" -objects $obj
-
-
-## Delete previous logs and journals
-file delete {*}[glob vivado*.backup.jou]
-file delete {*}[glob vivado*.backup.log]
-file delete -force .Xil/
